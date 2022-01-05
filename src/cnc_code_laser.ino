@@ -1,9 +1,8 @@
 #include <Arduino.h>
 
-//#include <Stepper.h>
+#include <Stepper.h>
 
 //#include <Servo.h>
-#include <AFMotor.h>
 
 //deklaracie funkcii na zaciatok 
 //palo
@@ -12,16 +11,25 @@ void penUp();
 void penDown();
 void processIncomingLine( char* line, int charNB );
 
-#define LINE_BUFFER_LENGTH 512
+const uint8_t  COIL_A1_X = PIN_PH0;
+const uint8_t  COIL_A2_X = PIN_PH1;
+const uint8_t  COIL_B1_X = PIN_PJ0;
+const uint8_t  COIL_B2_X = PIN_PJ1;
 
-char STEP = MICROSTEP ;
+const uint8_t  COIL_A1_Y = PIN_PE0;
+const uint8_t  COIL_A2_Y = PIN_PE1;
+const uint8_t  COIL_B1_Y = PIN_PE4;
+const uint8_t  COIL_B2_Y = PIN_PE5;
+
+const uint8_t SERVO_PIN = PIN_PB4;
+
+const int LINE_BUFFER_LENGTH = 512;
+
+//char STEP = MICROSTEP ;//4
 
 // Servo position for Up and Down 
-const int penZUp = LOW;
-const int penZDown = HIGH;
-
-// Servo on PWM pin 10
-const int penServoPin = 6;
+const int PEN_UP = LOW;
+const int PEN_DOWN = HIGH;
 
 // Should be right for DVD steppers, but is not too important here
 const int stepsPerRevolution = 200; 
@@ -30,9 +38,8 @@ const int stepsPerRevolution = 200;
 //Servo penServo;  
 
 // Initialize steppers for X- and Y-axis using this Arduino pins for the L293D H-bridge
-AF_Stepper myStepperY(stepsPerRevolution,1);            
-AF_Stepper myStepperX(stepsPerRevolution,2);  
-
+Stepper myStepperX(stepsPerRevolution, COIL_A1_X, COIL_A2_X, COIL_B1_X, COIL_B2_X);
+Stepper myStepperY(stepsPerRevolution, COIL_A1_Y, COIL_A2_Y, COIL_B1_Y, COIL_B2_Y);
 
 /* Structures, global variables    */
 struct point { 
@@ -88,15 +95,24 @@ boolean verbose = false;
 void setup() {
   //  Setup
   
+//definovanie vystupov
+  pinMode(COIL_A1_X, OUTPUT);
+  pinMode(COIL_A2_X, OUTPUT);
+  pinMode(COIL_B1_X, OUTPUT);
+  pinMode(COIL_B2_X, OUTPUT);
+  pinMode(COIL_A1_Y, OUTPUT);
+  pinMode(COIL_A2_Y, OUTPUT);
+  pinMode(COIL_B1_Y, OUTPUT);
+  pinMode(COIL_B2_Y, OUTPUT);
+
   Serial.begin( 9600 );
   
-  pinMode(penServoPin, OUTPUT);
-  digitalWrite(penServoPin, penZUp);
+  pinMode(SERVO_PIN, OUTPUT);
+  penUp();
   delay(100);
 
   // Decrease if necessary
   myStepperX.setSpeed(100);
-
   myStepperY.setSpeed(100);  
   
 
@@ -350,22 +366,26 @@ void drawLine(float x1, float y1) {
 
   if (dx > dy) {
     for (i=0; i<dx; ++i) {
-      myStepperX.onestep(sx,STEP);
+      //ak je sx kladne cislo, rotuje vpravo, ak je zaporne tak rotuje vlavo
+      myStepperX.step(sx);
       over+=dy;
       if (over>=dx) {
         over-=dx;
-        myStepperY.onestep(sy,STEP);
+        //ak je sy kladne cislo, rotuje vpravo, ak je zaporne tak rotuje vlavo
+        myStepperY.step(sy);
       }
     delay(StepDelay);
     }
   }
   else {
     for (i=0; i<dy; ++i) {
-      myStepperY.onestep(sy,STEP);
+      //ak je sy kladne cislo, rotuje vpravo, ak je zaporne tak rotuje vlavo
+      myStepperY.step(sy);
       over+=dx;
       if (over>=dy) {
         over-=dy;
-        myStepperX.onestep(sx,STEP);
+        //ak je sx kladne cislo, rotuje vpravo, ak je zaporne tak rotuje vlavo
+        myStepperX.step(sx);
       }
       delay(StepDelay);
     }    
@@ -398,11 +418,11 @@ void drawLine(float x1, float y1) {
 
 //  Raises pen
 void penUp() { 
-  digitalWrite(penServoPin,penZUp);
+  digitalWrite(SERVO_PIN,PEN_UP);
   delay(penDelay); 
   Zpos=Zmax; 
-  digitalWrite(15, LOW);
-    digitalWrite(16, HIGH);
+//  digitalWrite(15, LOW);
+//    digitalWrite(16, HIGH);
   if (verbose) { 
     Serial.println("Pen up!"); 
     
@@ -410,12 +430,12 @@ void penUp() {
 }
 //  Lowers pen
 void penDown() { 
-  digitalWrite(penServoPin,penZDown);
+  digitalWrite(SERVO_PIN,PEN_DOWN);
   delay(penDelay);  
   Zpos=Zmin; 
 
-  digitalWrite(15, HIGH);
-    digitalWrite(16, LOW);
+//  digitalWrite(15, HIGH);
+//    digitalWrite(16, LOW);
   if (verbose) { 
     Serial.println("Pen down."); 
     
