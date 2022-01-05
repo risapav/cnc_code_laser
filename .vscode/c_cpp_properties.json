@@ -1,0 +1,67 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "/home/palo/Documents/PlatformIO/Projects/CNC_code_laser/include",
+                "/home/palo/Documents/PlatformIO/Projects/CNC_code_laser/src",
+                "/home/palo/Documents/PlatformIO/Projects/CNC_code_laser/.pio/libdeps/megaatmega2560/Stepper/src",
+                "/home/palo/Documents/PlatformIO/Projects/CNC_code_laser/.pio/libdeps/megaatmega2560/Servo/src",
+                "/home/palo/Documents/PlatformIO/Projects/CNC_code_laser/.pio/libdeps/megaatmega2560/Adafruit Motor Shield library",
+                "/home/palo/.platformio/packages/framework-arduino-avr/cores/arduino",
+                "/home/palo/.platformio/packages/framework-arduino-avr/variants/mega",
+                "/home/palo/Documents/PlatformIO/Projects/CNC_code_laser/.pio/libdeps/megaatmega2560/AccelStepper/src",
+                "/home/palo/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                "/home/palo/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                "/home/palo/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                "/home/palo/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                "/home/palo/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                "/home/palo/.platformio/packages/tool-unity",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "/home/palo/Documents/PlatformIO/Projects/CNC_code_laser/include",
+                    "/home/palo/Documents/PlatformIO/Projects/CNC_code_laser/src",
+                    "/home/palo/Documents/PlatformIO/Projects/CNC_code_laser/.pio/libdeps/megaatmega2560/Stepper/src",
+                    "/home/palo/Documents/PlatformIO/Projects/CNC_code_laser/.pio/libdeps/megaatmega2560/Servo/src",
+                    "/home/palo/Documents/PlatformIO/Projects/CNC_code_laser/.pio/libdeps/megaatmega2560/Adafruit Motor Shield library",
+                    "/home/palo/.platformio/packages/framework-arduino-avr/cores/arduino",
+                    "/home/palo/.platformio/packages/framework-arduino-avr/variants/mega",
+                    "/home/palo/Documents/PlatformIO/Projects/CNC_code_laser/.pio/libdeps/megaatmega2560/AccelStepper/src",
+                    "/home/palo/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                    "/home/palo/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                    "/home/palo/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                    "/home/palo/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                    "/home/palo/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                    "/home/palo/.platformio/packages/tool-unity",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=50204",
+                "ARDUINO_AVR_MEGA2560",
+                "PIO_FRAMEWORK_ARDUINO_LWIP2_LOW_MEMORY",
+                "F_CPU=16000000L",
+                "ARDUINO_ARCH_AVR",
+                "ARDUINO=10808",
+                "__AVR_ATmega2560__",
+                ""
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "compilerPath": "/home/palo/.platformio/packages/toolchain-atmelavr/bin/avr-gcc",
+            "compilerArgs": [
+                "-mmcu=atmega2560",
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}
