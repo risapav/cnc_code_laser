@@ -357,6 +357,7 @@ void processCommand() {
     switch(pen) {
       case 1000:
         penUp();      
+        break;
       case 0:
       default:
         penDown();
