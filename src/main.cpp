@@ -8,11 +8,11 @@
 //****************************************************
 //testovacie funkcie na nastavenie motorov
 //****************************************************
-//#define TESTOVANIE true
+#define TESTOVANIE true
   #ifdef TESTOVANIE
-    #define TEST1 true
+    //#define TEST1 true
     //#define TEST2 true
-    //#define TEST3 true
+    #define TEST3 true
   #endif
 
 //otoci osou o jednu otacku, pocka 1000ms a otoci osou naspat
@@ -35,10 +35,10 @@ const uint8_t  COIL_A2_X = 17;//PIN_PH1;
 const uint8_t  COIL_B1_X = 15;//PIN_PJ0;
 const uint8_t  COIL_B2_X = 14;//PIN_PJ1;
 
-const uint8_t  COIL_A1_Y = 0;//PIN_PE0;
-const uint8_t  COIL_A2_Y = 1;//PIN_PE1;
-const uint8_t  COIL_B1_Y = 2;//PIN_PE4;
-const uint8_t  COIL_B2_Y = 3;//PIN_PE5;
+const uint8_t  COIL_A1_Y = 2;//PIN_PE0;
+const uint8_t  COIL_A2_Y = 3;//PIN_PE1;
+const uint8_t  COIL_B1_Y = 4;//PIN_PE4;
+const uint8_t  COIL_B2_Y = 5;//PIN_PE5;
 
 const uint8_t SERVO_PIN = 6;//PIN_PB4;
 
