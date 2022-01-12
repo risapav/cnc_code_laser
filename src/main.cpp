@@ -2,11 +2,8 @@
 
 #include <Stepper.h>
 
-//#include <Servo.h>
-
-
 //****************************************************
-//testovacie funkcie na nastavenie motorov
+//testovacie funkcie na nastavenie motorov - zaciatok
 //****************************************************
 #define TESTOVANIE true
   #ifdef TESTOVANIE
@@ -23,7 +20,9 @@ void test_2_x();
 void test_2_y();
 //nakresli obdlznik
 void test_3();
-//******************************************************
+//****************************************************
+//testovacie funkcie na nastavenie motorov - koniec
+//****************************************************
 
 //deklaracie funkcii na zaciatok 
 void penUp();
@@ -91,9 +90,6 @@ const float DLZKA_MAX_Y = 40.0;
 // koniec kalibracných konštánt stroja
 //######################################################
 
-// create servo object to control a servo 
-//Servo penServo;  
-
 // Initialize steppers for X- and Y-axis using this Arduino pins for the L293D H-bridge
 Stepper myStepperX(STEPS_PER_REVOLUTION_X, COIL_A1_X, COIL_A2_X, COIL_B1_X, COIL_B2_X);
 Stepper myStepperY(STEPS_PER_REVOLUTION_Y, COIL_A1_Y, COIL_A2_Y, COIL_B1_Y, COIL_B2_Y);
@@ -101,20 +97,11 @@ Stepper myStepperY(STEPS_PER_REVOLUTION_Y, COIL_A1_Y, COIL_A2_Y, COIL_B1_Y, COIL
 // Set to true to get debug output.
 boolean verbose = false;
 
-//  Needs to interpret 
-//  G1 for moving
-//  G4 P300 (wait 150ms)
-//  M300 S30 (pen down)
-//  M300 S50 (pen up)
-//  Discard anything with a (
-//  Discard any other command!
-
-
 //------------------------------------------------------------------------------
 // GLOBALS
 //------------------------------------------------------------------------------
 #define VERSION        (1)  // firmware version
-#define BAUD           (57600)  // How fast is the Arduino talking?
+#define BAUD           (9600)  // How fast is the Arduino talking?
 #define MAX_BUF        (64)  // What is the longest message Arduino can store?
 #define STEPS_PER_TURN (400)  // depends on your stepper motor.  most are 200.
 #define MIN_STEP_DELAY (50.0)
@@ -315,10 +302,11 @@ void where() {
   output("Y",py);
   output("F",fr);
   Serial.println(mode_abs?"ABS":"REL");
-} /**
+} 
+
+/**
  * display helpful information
  */
-
 void help() {
   Serial.print(F("GcodeCNCDemo2AxisV1 "));
   Serial.println(VERSION);
@@ -411,11 +399,6 @@ void ready() {
 void penUp() { 
   digitalWrite(SERVO_PIN,PEN_UP);
 
-  //musi sa opravit
- // delay(penDelay); 
-  
-//  digitalWrite(15, LOW);
-//    digitalWrite(16, HIGH);
   if (verbose) { 
     Serial.println("Pen up!"); 
     
@@ -424,11 +407,7 @@ void penUp() {
 //  Lowers pen
 void penDown() { 
   digitalWrite(SERVO_PIN,PEN_DOWN);
-  //musi sa opravit
-  //delay(penDelay);  
-  
-//  digitalWrite(15, HIGH);
-//    digitalWrite(16, LOW);
+
   if (verbose) { 
     Serial.println("Pen down.");   
   } 
@@ -442,7 +421,7 @@ void penDown() {
  ***********************/
 void setup() {
   //  Setup
-  Serial.begin( 9600 );
+  Serial.begin( BAUD );
   
   pinMode(SERVO_PIN, OUTPUT);
 
@@ -476,11 +455,12 @@ void setup() {
  * After setup() this machine will repeat loop() forever.
  */
 void loop() {
+
+//****************************************************
+//testovacie funkcie na nastavenie motorov - zaciatok
+//****************************************************
 #ifdef TESTOVANIE
-  //****************************************************
-  //zaciatok testovania
-  //****************************************************
-    while (1) {
+    while (1) { // zaciatok nekonecnej slucky
   #ifdef TEST1
       test_1_x();
       test_1_y();
@@ -494,11 +474,11 @@ void loop() {
   #ifdef TEST3
       test_3();
   #endif  
-    }
-  //****************************************************
-  //koniec testovania
-  //****************************************************    
+    } // koniec nekonecnej slucky
 #endif
+//****************************************************
+//testovacie funkcie na nastavenie motorov - koniec
+//****************************************************
 
   // listen for serial commands
   while(Serial.available() > 0) {  // if something is available
@@ -509,11 +489,7 @@ void loop() {
       // entire message received
       buffer[sofar]=0;  // end the buffer so string functions work right
       Serial.print(F("\r\n"));  // echo a return character for humans
-/*
-Serial.println("-->> nacital som : ");
-Serial.println(buffer);
-Serial.println("\r\n");
-*/
+
       processCommand();  // do something with the command
       ready();
     }
@@ -521,9 +497,9 @@ Serial.println("\r\n");
 }
 
 
-//************************************************
-//testovanie
-//************************************************
+//****************************************************
+//testovacie funkcie na nastavenie motorov - zaciatok
+//****************************************************
 //malo by otocit motor o jednu otacku (360 stupnou)
 void test_1_x() {
   myStepperX.step(STEPS_PER_REVOLUTION_X);
@@ -564,3 +540,6 @@ void test_3() {
   myStepperY.step(-(int)(STEPS_PER_MILIMETER_Y * DLZKA_MAX_Y));
   delay(1000);
 }
+//****************************************************
+//testovacie funkcie na nastavenie motorov - koniec
+//****************************************************
